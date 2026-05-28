@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nobl</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header id="masthead">
+    <div class="masthead-top">
+      <div id="tag-filter"></div>
+      <div class="masthead-logo">
+        <span id="site-title">Nobl</span>
+      </div>
+      <div class="masthead-right">
+        <button id="new-post-btn">Write</button>
+      </div>
+    </div>
+    <div class="masthead-rule"></div>
+  </header>
+
+  <main>
+    <section id="list-view">
+      <div id="post-list"></div>
+    </section>
+
+    <section id="post-view" class="hidden">
+      <button id="back-btn">← All posts</button>
+      <article id="post-content"></article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo" id="footer-title">Nobl</span>
+      <span class="footer-copy">© <span id="footer-year"></span></span>
+    </div>
+  </footer>
+
+  <!-- Write modal -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal">
+      <div class="modal-header">
+        <span class="modal-title">New post</span>
+        <button id="modal-close" aria-label="Close">✕</button>
+      </div>
+
+      <div id="auth-section">
+        <label class="field-label">GitHub token <span class="hint">— contents: write</span></label>
+        <input type="password" id="gh-token" placeholder="ghp_…" autocomplete="off" />
+        <p class="hint">Leave blank to use the token in config.js.</p>
+      </div>
+
+      <form id="post-form">
+        <label class="field-label">Title
+          <input type="text" id="f-title" required placeholder="Title" />
+        </label>
+        <div class="form-row">
+          <label class="field-label">Tags
+            <input type="text" id="f-tags" placeholder="design, culture" />
+          </label>
+          <label class="field-label">Cover image <span class="hint">(URL, optional)</span>
+            <input type="url" id="f-image" placeholder="https://…" />
+          </label>
+        </div>
+        <label class="field-label">Deck
+          <input type="text" id="f-summary" placeholder="One-sentence summary" />
+        </label>
+        <label class="field-label">Body — Markdown
+          <textarea id="f-content" rows="14" placeholder="# Start writing…"></textarea>
+        </label>
+        <div class="modal-actions">
+          <button type="button" id="preview-btn" class="btn-text">Preview</button>
+          <button type="submit" class="btn-fill">Publish</button>
+        </div>
+      </form>
+
+      <div id="preview-pane" class="hidden">
+        <hr class="thin-rule" />
+        <div id="preview-content" class="prose"></div>
+      </div>
+
+      <p id="publish-status"></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
