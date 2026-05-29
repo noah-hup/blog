@@ -5,6 +5,7 @@ let allPosts  = [];
 let activeTag = null;
 let editingId = null;
 let currentPostId = null;
+let ghToken = null;
 
 /* ── Load posts ── */
 async function loadPosts() {
@@ -150,9 +151,9 @@ function openNewModal() {
   document.getElementById('post-form').reset();
   document.getElementById('preview-pane').classList.add('hidden');
   setStatus('', '');
-  // Show token field only if no token saved yet
+  // Show token field only if no token in memory yet
   document.getElementById('auth-section').style.display =
-    sessionStorage.getItem('gh_token') ? 'none' : '';
+    ghToken ? 'none' : '';
   overlay.classList.remove('hidden');
   setTimeout(() => document.getElementById('f-title').focus(), 50);
 }
@@ -170,7 +171,7 @@ function openEditModal(id) {
   document.getElementById('preview-pane').classList.add('hidden');
   setStatus('', '');
   document.getElementById('auth-section').style.display =
-    sessionStorage.getItem('gh_token') ? 'none' : '';
+    ghToken ? 'none' : '';
   overlay.classList.remove('hidden');
   setTimeout(() => document.getElementById('f-title').focus(), 50);
 }
@@ -189,10 +190,10 @@ document.getElementById('preview-btn').addEventListener('click', () => {
 document.getElementById('post-form').addEventListener('submit', async e => {
   e.preventDefault();
 
-  // Collect token — prefer sessionStorage, then field input
+  // Collect token — prefer in-memory, then field input
   const fieldToken = document.getElementById('gh-token').value.trim();
-  if (fieldToken) sessionStorage.setItem('gh_token', fieldToken);
-  const token = sessionStorage.getItem('gh_token');
+  if (fieldToken) ghToken = fieldToken;
+  const token = ghToken;
   if (!token) {
     document.getElementById('auth-section').style.display = '';
     setStatus('Enter your GitHub token above.', 'error');
@@ -235,7 +236,7 @@ document.getElementById('post-form').addEventListener('submit', async e => {
   } catch (err) {
     // If token was rejected, clear it and show the field again
     if (err.message.includes('403') || err.message.includes('401')) {
-      sessionStorage.removeItem('gh_token');
+      ghToken = null;
       document.getElementById('auth-section').style.display = '';
       document.getElementById('gh-token').value = '';
     }
