@@ -14,12 +14,8 @@
   <header id="masthead">
     <div class="masthead-top">
       <div id="tag-filter"></div>
-      <div class="masthead-logo">
-        <span id="site-title">Nobl</span>
-      </div>
-      <div class="masthead-right">
-        <button id="new-post-btn">Write</button>
-      </div>
+      <div class="masthead-logo"></div>
+      <div class="masthead-right"></div>
     </div>
     <div class="masthead-rule"></div>
   </header>
@@ -35,25 +31,18 @@
     </section>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <span class="footer-logo" id="footer-title">Nobl</span>
-      <span class="footer-copy">© <span id="footer-year"></span></span>
-    </div>
-  </footer>
-
-  <!-- Write modal -->
+  <!-- Write / Edit modal -->
   <div id="modal-overlay" class="hidden">
     <div id="modal">
       <div class="modal-header">
-        <span class="modal-title">New post</span>
+        <span class="modal-title" id="modal-title">New post</span>
         <button id="modal-close" aria-label="Close">✕</button>
       </div>
 
       <div id="auth-section">
         <label class="field-label">GitHub token <span class="hint">— contents: write</span></label>
         <input type="password" id="gh-token" placeholder="ghp_…" autocomplete="off" />
-        <p class="hint">Leave blank to use the token in config.js.</p>
+        <p class="hint">Stored in session memory only.</p>
       </div>
 
       <form id="post-form">

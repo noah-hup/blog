@@ -1,11 +1,10 @@
 /* ── Init ── */
-document.getElementById('site-title').textContent   = CONFIG.blogTitle;
-document.getElementById('footer-title').textContent = CONFIG.blogTitle;
-document.getElementById('footer-year').textContent  = new Date().getFullYear();
 document.title = CONFIG.blogTitle;
 
-let allPosts = [];
+let allPosts  = [];
 let activeTag = null;
+let editingId = null;
+let currentPostId = null;
 
 /* ── Load posts ── */
 async function loadPosts() {
@@ -33,7 +32,6 @@ function renderTagFilter() {
   const tags = allTags();
   el.innerHTML = '';
   if (!tags.length) return;
-
   el.appendChild(mkChip('All', !activeTag));
   tags.forEach(t => el.appendChild(mkChip(t, activeTag === t)));
 }
@@ -52,6 +50,7 @@ function mkChip(text, active) {
 
 /* ── Post list ── */
 function renderList() {
+  currentPostId = null;
   showView('list');
   const el    = document.getElementById('post-list');
   const posts = activeTag
@@ -64,7 +63,6 @@ function renderList() {
   }
 
   const [first, ...rest] = posts;
-
   el.innerHTML = featuredCard(first) +
     (rest.length ? `<span class="section-label">More</span>` + rest.map(secondaryCard).join('') : '');
 
@@ -74,16 +72,14 @@ function renderList() {
 }
 
 function featuredCard(p) {
-  const kicker = kickerHtml(p);
   const imgHtml = p.image
     ? `<img class="featured-image" src="${ea(p.image)}" alt="${ea(p.title)}" loading="lazy" />`
     : `<div class="featured-no-image"></div>`;
-
   return `
     <div class="post-card-featured" data-id="${p.id}">
       ${imgHtml}
       <div class="featured-text">
-        <div class="card-kicker">${kicker}</div>
+        <div class="card-kicker">${kickerHtml(p)}</div>
         <h2 class="card-headline">${eh(p.title)}</h2>
         ${p.summary ? `<p class="card-deck">${eh(p.summary)}</p>` : ''}
       </div>
@@ -91,16 +87,14 @@ function featuredCard(p) {
 }
 
 function secondaryCard(p) {
-  const kicker  = kickerHtml(p);
   const hasImg  = !!p.image;
   const imgHtml = hasImg
     ? `<img class="card-thumb" src="${ea(p.image)}" alt="${ea(p.title)}" loading="lazy" />`
-    : `<div class="card-thumb-empty"></div>`;
-
+    : '';
   return `
     <div class="post-card${hasImg ? '' : ' no-img'}" data-id="${p.id}">
       <div>
-        <div class="card-kicker">${kicker}</div>
+        <div class="card-kicker">${kickerHtml(p)}</div>
         <h3 class="card-headline">${eh(p.title)}</h3>
         ${p.summary ? `<p class="card-deck">${eh(p.summary)}</p>` : ''}
       </div>
@@ -117,6 +111,7 @@ function kickerHtml(p) {
 function openPost(id) {
   const post = allPosts.find(p => p.id === id);
   if (!post) return;
+  currentPostId = id;
 
   const tags    = (post.tags || []).map(t => `<span>${eh(t)}</span>`).join('');
   const imgHtml = post.image
@@ -149,16 +144,37 @@ function showView(which) {
 /* ── Modal ── */
 const overlay = document.getElementById('modal-overlay');
 
-// Hide token field if a token is baked into config
-if (CONFIG.githubToken && CONFIG.githubToken !== 'YOUR_TOKEN_HERE') {
-  document.getElementById('auth-section').style.display = 'none';
+function openNewModal() {
+  editingId = null;
+  document.getElementById('modal-title').textContent = 'New post';
+  document.getElementById('post-form').reset();
+  document.getElementById('preview-pane').classList.add('hidden');
+  setStatus('', '');
+  // Show token field only if no token saved yet
+  document.getElementById('auth-section').style.display =
+    sessionStorage.getItem('gh_token') ? 'none' : '';
+  overlay.classList.remove('hidden');
+  setTimeout(() => document.getElementById('f-title').focus(), 50);
 }
 
-document.getElementById('new-post-btn').addEventListener('click', () => {
-  overlay.classList.remove('hidden');
-  setStatus('', '');
+function openEditModal(id) {
+  const post = allPosts.find(p => p.id === id);
+  if (!post) return;
+  editingId = id;
+  document.getElementById('modal-title').textContent = 'Edit post';
+  document.getElementById('f-title').value   = post.title   || '';
+  document.getElementById('f-tags').value    = (post.tags || []).join(', ');
+  document.getElementById('f-image').value   = post.image   || '';
+  document.getElementById('f-summary').value = post.summary || '';
+  document.getElementById('f-content').value = post.content || '';
   document.getElementById('preview-pane').classList.add('hidden');
-});
+  setStatus('', '');
+  document.getElementById('auth-section').style.display =
+    sessionStorage.getItem('gh_token') ? 'none' : '';
+  overlay.classList.remove('hidden');
+  setTimeout(() => document.getElementById('f-title').focus(), 50);
+}
+
 document.getElementById('modal-close').addEventListener('click', () => overlay.classList.add('hidden'));
 overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.add('hidden'); });
 
@@ -169,11 +185,14 @@ document.getElementById('preview-btn').addEventListener('click', () => {
   document.getElementById('preview-pane').classList.remove('hidden');
 });
 
-/* ── Publish ── */
+/* ── Publish / Save ── */
 document.getElementById('post-form').addEventListener('submit', async e => {
   e.preventDefault();
-  const token = document.getElementById('gh-token').value.trim()
-    || (CONFIG.githubToken !== 'YOUR_TOKEN_HERE' ? CONFIG.githubToken : '');
+
+  // Collect token — prefer sessionStorage, then field input
+  const fieldToken = document.getElementById('gh-token').value.trim();
+  if (fieldToken) sessionStorage.setItem('gh_token', fieldToken);
+  const token = sessionStorage.getItem('gh_token');
   if (!token) { setStatus('Enter your GitHub token above.', 'error'); return; }
 
   const title   = document.getElementById('f-title').value.trim();
@@ -181,24 +200,53 @@ document.getElementById('post-form').addEventListener('submit', async e => {
   const summary = document.getElementById('f-summary').value.trim();
   const image   = document.getElementById('f-image').value.trim();
   const content = document.getElementById('f-content').value;
-  const id      = slugify(title) + '-' + Date.now();
-  const date    = new Date().toISOString().slice(0, 10);
 
-  const newPost = { id, title, date, tags, summary, content, ...(image && { image }) };
-  setStatus('Publishing…', '');
+  setStatus('Saving…', '');
 
   try {
     const meta = await ghGet(token, CONFIG.postsFile);
+    let updated;
+
+    if (editingId) {
+      updated = allPosts.map(p => {
+        if (p.id !== editingId) return p;
+        const u = { ...p, title, tags, summary, content };
+        if (image) u.image = image; else delete u.image;
+        return u;
+      });
+    } else {
+      const id   = slugify(title) + '-' + Date.now();
+      const date = new Date().toISOString().slice(0, 10);
+      updated = [{ id, title, date, tags, summary, content, ...(image && { image }) }, ...allPosts];
+    }
+
     await ghPut(token, CONFIG.postsFile, meta.sha,
-      JSON.stringify([newPost, ...allPosts], null, 2), `Add post: ${title}`);
-    setStatus('Published!', 'success');
+      JSON.stringify(updated, null, 2),
+      editingId ? `Edit post: ${title}` : `Add post: ${title}`);
+
+    setStatus(editingId ? 'Saved!' : 'Published!', 'success');
     overlay.classList.add('hidden');
-    document.getElementById('post-form').reset();
+    if (!editingId) document.getElementById('post-form').reset();
     setTimeout(loadPosts, 2500);
   } catch (err) {
     setStatus(`Error: ${err.message}`, 'error');
   }
 });
+
+/* ── Secret type shortcuts ── */
+(function () {
+  let buf = '';
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { overlay.classList.add('hidden'); buf = ''; return; }
+    if (document.activeElement.tagName === 'INPUT' ||
+        document.activeElement.tagName === 'TEXTAREA') return;
+
+    buf = (buf + e.key).slice(-5);
+
+    if (buf.endsWith('write')) { buf = ''; openNewModal(); }
+    if (buf.endsWith('edit') && currentPostId) { buf = ''; openEditModal(currentPostId); }
+  });
+})();
 
 /* ── GitHub API ── */
 function ghHeaders(token) {

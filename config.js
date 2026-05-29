@@ -4,5 +4,5 @@ const CONFIG = {
   postsFile: 'posts.json',
   blogTitle: "Nobl",
   blogSubtitle: 'Thoughts on everything',
-  githubToken: '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',
+  adminPasswordHash: 'dfca6aec7c1a7a048292e24126c9035713606babc0a0308248a5996fb5e3e81f',
 };

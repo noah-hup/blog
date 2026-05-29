@@ -88,7 +88,9 @@ body {
   border: 1px solid var(--rule);
   padding: 0.38rem 0.9rem;
   transition: border-color 0.15s, color 0.15s;
+  display: none;
 }
+#new-post-btn.visible { display: inline-block; }
 #new-post-btn:hover { border-color: var(--ink); }
 
 .masthead-rule { height: 1px; background: var(--ink); }
@@ -331,30 +333,6 @@ main {
 .prose img { max-width: 100%; margin: 2rem 0; }
 .thin-rule { border: none; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
 
-/* ── Footer ── */
-footer {
-  border-top: 1px solid var(--ink);
-  padding: 1.5rem 2rem;
-}
-
-.footer-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.footer-logo {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
-.footer-copy {
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  color: var(--ghost);
-  text-transform: uppercase;
-}
 
 /* ── Modal ── */
 #modal-overlay {
