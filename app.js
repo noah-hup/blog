@@ -193,7 +193,11 @@ document.getElementById('post-form').addEventListener('submit', async e => {
   const fieldToken = document.getElementById('gh-token').value.trim();
   if (fieldToken) sessionStorage.setItem('gh_token', fieldToken);
   const token = sessionStorage.getItem('gh_token');
-  if (!token) { setStatus('Enter your GitHub token above.', 'error'); return; }
+  if (!token) {
+    document.getElementById('auth-section').style.display = '';
+    setStatus('Enter your GitHub token above.', 'error');
+    return;
+  }
 
   const title   = document.getElementById('f-title').value.trim();
   const tags    = document.getElementById('f-tags').value.split(',').map(t => t.trim()).filter(Boolean);
@@ -229,6 +233,12 @@ document.getElementById('post-form').addEventListener('submit', async e => {
     if (!editingId) document.getElementById('post-form').reset();
     setTimeout(loadPosts, 2500);
   } catch (err) {
+    // If token was rejected, clear it and show the field again
+    if (err.message.includes('403') || err.message.includes('401')) {
+      sessionStorage.removeItem('gh_token');
+      document.getElementById('auth-section').style.display = '';
+      document.getElementById('gh-token').value = '';
+    }
     setStatus(`Error: ${err.message}`, 'error');
   }
 });
