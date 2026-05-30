@@ -1,85 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nobl</title>
+  <title id="page-title">Nobl</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;0,8..60,900;1,8..60,400;1,8..60,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="config.js"></script>
 </head>
 <body>
 
-  <header id="masthead">
-    <div class="masthead-top">
-      <div id="tag-filter"></div>
-      <div class="masthead-logo"></div>
-      <div class="masthead-right"></div>
+  <!-- HOME VIEW -->
+  <main id="home-view" class="view active">
+
+    <!-- TOP BAR: logo + search + dropdown -->
+    <div class="top-bar-wrap">
+      <div class="top-bar-inner">
+        <a href="#" class="nav-logo" id="nav-logo">Nobl</a>
+        <div class="tag-dropdown-inner">
+          <button class="tag-dropdown-btn" id="tag-dropdown-btn">
+            <span id="tag-dropdown-label">All</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="tag-dropdown-menu hidden" id="tag-dropdown-menu">
+            <button class="tag-dropdown-item active" data-tag="all">All</button>
+          </div>
+        </div>
+        <div class="nav-search">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="search-input" placeholder="Search" autocomplete="off" />
+          <button class="search-clear" id="search-clear" aria-label="Clear search">×</button>
+        </div>
+      </div>
     </div>
-    <div class="masthead-rule"></div>
-  </header>
 
-  <main>
-    <section id="list-view">
-      <div id="post-list"></div>
-    </section>
+    <!-- FEED -->
+    <div class="feed-wrap">
+      <div class="feed" id="feed"></div>
+      <div class="no-results hidden" id="no-results">
+        <p>No posts found.</p>
+      </div>
+      <div class="load-more-wrap" id="load-more-wrap">
+        <button class="load-more-btn" id="load-more-btn">Load more</button>
+      </div>
+    </div>
 
-    <section id="post-view" class="hidden">
-      <button id="back-btn">← All posts</button>
-      <article id="post-content"></article>
-    </section>
   </main>
 
-  <!-- Write / Edit modal -->
-  <div id="modal-overlay" class="hidden">
-    <div id="modal">
-      <div class="modal-header">
-        <span class="modal-title" id="modal-title">New post</span>
-        <button id="modal-close" aria-label="Close">✕</button>
-      </div>
-
-      <div id="auth-section">
-        <label class="field-label">GitHub token <span class="hint">— contents: write</span></label>
-        <input type="password" id="gh-token" placeholder="ghp_…" autocomplete="off" />
-        <p class="hint">Stored in session memory only.</p>
-      </div>
-
-      <form id="post-form">
-        <label class="field-label">Title
-          <input type="text" id="f-title" required placeholder="Title" />
-        </label>
-        <div class="form-row">
-          <label class="field-label">Tags
-            <input type="text" id="f-tags" placeholder="design, culture" />
-          </label>
-          <label class="field-label">Cover image <span class="hint">(URL, optional)</span>
-            <input type="url" id="f-image" placeholder="https://…" />
-          </label>
+  <!-- POST VIEW -->
+  <main id="post-view" class="view">
+    <div class="post-wrap">
+      <button class="back-btn" id="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Back
+      </button>
+      <article class="post-article">
+        <div class="post-meta-top" id="post-meta-top">
+          <img class="post-avatar" id="post-avatar" src="" alt="" />
+          <div class="post-meta-top-text">
+            <span class="post-author" id="post-author"></span>
+            <span class="post-date-read">
+              <span id="post-date"></span>
+              <span class="dot">·</span>
+              <span id="post-read-time"></span> min read
+            </span>
+          </div>
         </div>
-        <label class="field-label">Deck
-          <input type="text" id="f-summary" placeholder="One-sentence summary" />
-        </label>
-        <label class="field-label">Body — Markdown
-          <textarea id="f-content" rows="14" placeholder="# Start writing…"></textarea>
-        </label>
-        <div class="modal-actions">
-          <button type="button" id="preview-btn" class="btn-text">Preview</button>
-          <button type="submit" class="btn-fill">Publish</button>
+        <h1 class="post-title" id="post-title"></h1>
+        <p class="post-subtitle" id="post-subtitle"></p>
+        <div class="post-tags" id="post-tags"></div>
+        <div class="post-cover-wrap" id="post-cover-wrap">
+          <img class="post-cover" id="post-cover" src="" alt="" />
         </div>
-      </form>
-
-      <div id="preview-pane" class="hidden">
-        <hr class="thin-rule" />
-        <div id="preview-content" class="prose"></div>
-      </div>
-
-      <p id="publish-status"></p>
+        <div class="post-body" id="post-body"></div>
+      </article>
     </div>
-  </div>
+  </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
