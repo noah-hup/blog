@@ -20,7 +20,7 @@
 
   function init() {
     document.title = CONFIG.blogTitle;
-    navLogo.textContent = CONFIG.blogTitle;
+    navLogo.innerHTML = CONFIG.blogTitle + '<span>.</span>';
 
     const apiUrl = `https://api.github.com/repos/${CONFIG.githubRepo}/contents/${CONFIG.postsDir}`;
     const getIds = fetch(apiUrl)
