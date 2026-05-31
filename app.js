@@ -301,45 +301,47 @@
     const dot = navLogo.querySelector(".logo-dot");
     const letters = ["logo-n","logo-o","logo-b","logo-l"].map(c => navLogo.querySelector("." + c));
 
-    // Create a flying ball clone
     const dotRect = dot.getBoundingClientRect();
+    const cx = dotRect.left + dotRect.width / 2;
+    const cy = dotRect.top + dotRect.height / 2;
+    const r = dotRect.height * 0.38;
+
+    // Real circle element — more precise than a text glyph
     const ball = document.createElement("div");
     ball.style.cssText = `
       position: fixed;
-      left: ${dotRect.left}px;
-      top: ${dotRect.top}px;
-      width: ${dotRect.width}px;
-      height: ${dotRect.height}px;
-      font-family: var(--serif);
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--accent);
+      width: ${r * 2}px;
+      height: ${r * 2}px;
+      border-radius: 50%;
+      background: var(--accent, #c8a96e);
       pointer-events: none;
       z-index: 9999;
-      line-height: 1;
+      transform: translate(-50%, -50%);
+      left: ${cx}px;
+      top: ${cy}px;
     `;
-    ball.textContent = ".";
     document.body.appendChild(ball);
     dot.style.opacity = "0";
 
-    // Cubic bezier S-curve: start → goes up-right → swoops down-right → returns
-    const sx = dotRect.left, sy = dotRect.top;
-    const c1x = sx + 60,  c1y = sy - 80;  // first control: up-right
-    const c2x = sx + 120, c2y = sy + 60;  // second control: down-right
-    const duration = 900;
+    // S-curve via cubic bezier: slow start, fast middle, eases back in
+    // Control points create an S: up-right then sweeps down-right back to origin
+    const c1x = cx + 70,  c1y = cy - 90;
+    const c2x = cx + 130, c2y = cy + 55;
+    const duration = 1100;
     const start = performance.now();
 
-    // ease-in: starts slow, accelerates
-    function easeIn(t) { return t * t * t; }
+    // Ease-in-out cubic
+    function ease(t) {
+      return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+    }
 
     function step(now) {
       const raw = Math.min((now - start) / duration, 1);
-      const t = easeIn(raw);
-
-      // Cubic bezier: start → c1 → c2 → start
+      const t = ease(raw);
       const mt = 1 - t;
-      const x = mt*mt*mt*sx + 3*mt*mt*t*c1x + 3*mt*t*t*c2x + t*t*t*sx;
-      const y = mt*mt*mt*sy + 3*mt*mt*t*c1y + 3*mt*t*t*c2y + t*t*t*sy;
+
+      const x = mt*mt*mt*cx + 3*mt*mt*t*c1x + 3*mt*t*t*c2x + t*t*t*cx;
+      const y = mt*mt*mt*cy + 3*mt*mt*t*c1y + 3*mt*t*t*c2y + t*t*t*cy;
 
       ball.style.left = x + "px";
       ball.style.top = y + "px";
@@ -358,18 +360,25 @@
   }
 
   function rippleLetters(letters) {
+    // Inject keyframe once
+    if (!document.getElementById("ripple-kf")) {
+      const s = document.createElement("style");
+      s.id = "ripple-kf";
+      s.textContent = `@keyframes letterRipple {
+        0%   { transform: translateY(0); }
+        35%  { transform: translateY(-7px); }
+        65%  { transform: translateY(2px); }
+        85%  { transform: translateY(-2px); }
+        100% { transform: translateY(0); }
+      }`;
+      document.head.appendChild(s);
+    }
+
     [...letters].reverse().forEach((el, i) => {
       setTimeout(() => {
-        el.style.transition = "transform 0.2s cubic-bezier(.36,.07,.19,.97)";
-        el.style.transform = "translateY(-6px)";
-        setTimeout(() => {
-          el.style.transform = "translateY(2px)";
-          setTimeout(() => {
-            el.style.transform = "";
-            setTimeout(() => { el.style.transition = ""; }, 200);
-          }, 120);
-        }, 140);
-      }, i * 45);
+        el.style.animation = "letterRipple 0.55s cubic-bezier(0.22,1,0.36,1) both";
+        el.addEventListener("animationend", () => { el.style.animation = ""; }, { once: true });
+      }, i * 55);
     });
   }
 
