@@ -67,7 +67,6 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-left: 24px;
   border: 1px solid var(--border);
   border-radius: 100px;
   padding: 4px 12px;
