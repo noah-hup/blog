@@ -70,14 +70,13 @@ a { color: inherit; text-decoration: none; }
   margin-left: 20px;
   flex: 1;
   border: 1px solid var(--border);
-  border-radius: 100px;
-  padding: 6px 14px;
+  border-radius: 10px;
+  padding: 7px 14px;
   position: relative;
   transition: border-color 0.15s;
 }
 .nav-search:focus-within {
   border-color: var(--text-muted);
-  border-radius: 12px;
 }
 
 .search-icon {
