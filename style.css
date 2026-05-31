@@ -194,7 +194,6 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   max-width: var(--content-w);
   transition: box-shadow 0.15s;
-  margin: 0 -16px;
 }
 .post-card:not(:last-child) {
   border-bottom: 1px solid var(--border);
