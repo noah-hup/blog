@@ -16,7 +16,7 @@
   <!-- HOME VIEW -->
   <main id="home-view" class="view active">
 
-    <!-- TOP BAR: logo + search + dropdown -->
+    <!-- TOP BAR: logo + dropdown -->
     <div class="top-bar-wrap">
       <div class="top-bar-inner">
         <a href="#" class="nav-logo" id="nav-logo">Nobl</a>
@@ -29,18 +29,18 @@
             <button class="tag-dropdown-item active" data-tag="all">All</button>
           </div>
         </div>
-        <div class="nav-search">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input type="text" id="search-input" placeholder="Search" autocomplete="off" />
-          <button class="search-clear" id="search-clear" aria-label="Clear search">×</button>
-        </div>
       </div>
     </div>
 
     <!-- FEED -->
     <div class="feed-wrap">
+      <div class="nav-search">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="Search posts…" autocomplete="off" />
+        <button class="search-clear" id="search-clear" aria-label="Clear search">×</button>
+      </div>
       <div class="feed" id="feed"></div>
       <div class="no-results hidden" id="no-results">
         <p>No posts found.</p>
