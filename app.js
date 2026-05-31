@@ -14,12 +14,11 @@
   const loadMoreWrap = document.getElementById("load-more-wrap");
   const backBtn = document.getElementById("back-btn");
   const navLogo = document.getElementById("nav-logo");
-  const dropdownBtn = document.getElementById("tag-dropdown-btn");
-  const dropdownLabel = document.getElementById("tag-dropdown-label");
-  const dropdownMenu = document.getElementById("tag-dropdown-menu");
+  const tagDropdown = document.getElementById("search-tag-dropdown");
 
   function init() {
     document.title = CONFIG.blogTitle;
+    navLogo.innerHTML = CONFIG.blogTitle + '<span>.</span>';
 
     const apiUrl = `https://api.github.com/repos/${CONFIG.githubRepo}/contents/${CONFIG.postsDir}`;
     const getIds = fetch(apiUrl)
@@ -41,7 +40,7 @@
       )))
       .then(posts => {
         allPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        buildDropdown();
+        buildTagDropdown();
         applyFilters();
         handleHash();
       })
@@ -56,6 +55,10 @@
       applyFilters();
     });
 
+    searchInput.addEventListener("focus", () => {
+      tagDropdown.classList.remove("hidden");
+    });
+
     searchClear.addEventListener("click", () => {
       searchInput.value = "";
       searchQuery = "";
@@ -65,34 +68,19 @@
       searchInput.focus();
     });
 
+    document.addEventListener("click", e => {
+      if (!document.getElementById("nav-search").contains(e.target)) {
+        tagDropdown.classList.add("hidden");
+      }
+    });
+
     document.getElementById("load-more-btn").addEventListener("click", () => {
       visibleCount += CONFIG.postsPerPage;
       renderFeed();
     });
 
-    // Dropdown toggle
-    dropdownBtn.addEventListener("click", e => {
-      e.stopPropagation();
-      const isOpen = !dropdownMenu.classList.contains("hidden");
-      dropdownMenu.classList.toggle("hidden", isOpen);
-      dropdownBtn.classList.toggle("open", !isOpen);
-    });
-
-    // Close dropdown on outside click
-    document.addEventListener("click", () => {
-      dropdownMenu.classList.add("hidden");
-      dropdownBtn.classList.remove("open");
-    });
-
     backBtn.addEventListener("click", goHome);
-    navLogo.addEventListener("click", e => {
-      e.preventDefault();
-      if (!location.hash.startsWith("#post/")) {
-        animateLogo();
-      } else {
-        goHome();
-      }
-    });
+    navLogo.addEventListener("click", e => { e.preventDefault(); goHome(); });
     window.addEventListener("hashchange", handleHash);
   }
 
@@ -123,38 +111,45 @@
     postView.classList.add("active");
     window.scrollTo({ top: 0, behavior: "instant" });
     history.pushState(null, "", `#post/${encodeURIComponent(post.id)}`);
-
     renderPost(post);
   }
 
-  // ── Dropdown ─────────────────────────────────────────────────────────────
-  function buildDropdown() {
+  // ── Tag dropdown ─────────────────────────────────────────────────────────
+  function buildTagDropdown() {
     const counts = {};
     allPosts.forEach(p => (p.tags || []).forEach(t => { counts[t] = (counts[t] || 0) + 1; }));
     const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([t]) => t);
 
-    // wire up the existing "All" item
-    dropdownMenu.querySelector("[data-tag='all']").addEventListener("click", () => setTag("all"));
+    tagDropdown.innerHTML = "";
 
-    sorted.forEach(tag => {
-      const btn = document.createElement("button");
-      btn.className = "tag-dropdown-item";
-      btn.dataset.tag = tag;
-      btn.textContent = tag;
-      btn.addEventListener("click", () => setTag(tag));
-      dropdownMenu.appendChild(btn);
+    const allPill = makePill("All", "all");
+    tagDropdown.appendChild(allPill);
+    sorted.forEach(tag => tagDropdown.appendChild(makePill(tag, tag)));
+    updatePills();
+  }
+
+  function makePill(label, tag) {
+    const btn = document.createElement("button");
+    btn.className = "search-tag-pill";
+    btn.textContent = label;
+    btn.addEventListener("mousedown", e => {
+      e.preventDefault();
+      setTag(tag);
+    });
+    return btn;
+  }
+
+  function updatePills() {
+    tagDropdown.querySelectorAll(".search-tag-pill").forEach(btn => {
+      const tag = btn.textContent === "All" ? "all" : btn.textContent;
+      btn.classList.toggle("active", tag === activeTag);
     });
   }
 
   function setTag(tag) {
     activeTag = tag;
     visibleCount = CONFIG.postsPerPage;
-    dropdownLabel.textContent = tag === "all" ? "All" : tag;
-    dropdownMenu.querySelectorAll(".tag-dropdown-item").forEach(btn => {
-      btn.classList.toggle("active", btn.dataset.tag === tag);
-    });
-    dropdownMenu.classList.add("hidden");
-    dropdownBtn.classList.remove("open");
+    updatePills();
     applyFilters();
   }
 
@@ -289,97 +284,6 @@
       meta[key] = val;
     });
     return { meta, body };
-  }
-
-  // ── Logo animation ───────────────────────────────────────────────────────
-  let logoAnimating = false;
-
-  function animateLogo() {
-    if (logoAnimating) return;
-    logoAnimating = true;
-
-    const dot = navLogo.querySelector(".logo-dot");
-    const letters = ["logo-n","logo-o","logo-b","logo-l"].map(c => navLogo.querySelector("." + c));
-
-    const dotRect = dot.getBoundingClientRect();
-    const cx = dotRect.left + dotRect.width / 2;
-    const cy = dotRect.top + dotRect.height / 2;
-    const r = dotRect.height * 0.38;
-
-    // Real circle element — more precise than a text glyph
-    const ball = document.createElement("div");
-    ball.style.cssText = `
-      position: fixed;
-      width: ${r * 2}px;
-      height: ${r * 2}px;
-      border-radius: 50%;
-      background: var(--accent, #c8a96e);
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      left: ${cx}px;
-      top: ${cy}px;
-    `;
-    document.body.appendChild(ball);
-    dot.style.opacity = "0";
-
-    // S-curve via cubic bezier: slow start, fast middle, eases back in
-    // Control points create an S: up-right then sweeps down-right back to origin
-    const c1x = cx + 70,  c1y = cy - 90;
-    const c2x = cx + 130, c2y = cy + 55;
-    const duration = 1100;
-    const start = performance.now();
-
-    // Ease-in-out cubic
-    function ease(t) {
-      return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
-    }
-
-    function step(now) {
-      const raw = Math.min((now - start) / duration, 1);
-      const t = ease(raw);
-      const mt = 1 - t;
-
-      const x = mt*mt*mt*cx + 3*mt*mt*t*c1x + 3*mt*t*t*c2x + t*t*t*cx;
-      const y = mt*mt*mt*cy + 3*mt*mt*t*c1y + 3*mt*t*t*c2y + t*t*t*cy;
-
-      ball.style.left = x + "px";
-      ball.style.top = y + "px";
-
-      if (raw < 1) {
-        requestAnimationFrame(step);
-      } else {
-        ball.remove();
-        dot.style.opacity = "";
-        rippleLetters(letters);
-        logoAnimating = false;
-      }
-    }
-
-    requestAnimationFrame(step);
-  }
-
-  function rippleLetters(letters) {
-    // Inject keyframe once
-    if (!document.getElementById("ripple-kf")) {
-      const s = document.createElement("style");
-      s.id = "ripple-kf";
-      s.textContent = `@keyframes letterRipple {
-        0%   { transform: translateY(0); }
-        35%  { transform: translateY(-7px); }
-        65%  { transform: translateY(2px); }
-        85%  { transform: translateY(-2px); }
-        100% { transform: translateY(0); }
-      }`;
-      document.head.appendChild(s);
-    }
-
-    [...letters].reverse().forEach((el, i) => {
-      setTimeout(() => {
-        el.style.animation = "letterRipple 0.55s cubic-bezier(0.22,1,0.36,1) both";
-        el.addEventListener("animationend", () => { el.style.animation = ""; }, { once: true });
-      }, i * 55);
-    });
   }
 
   document.addEventListener("DOMContentLoaded", init);
