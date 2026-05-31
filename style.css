@@ -61,7 +61,6 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-left: auto;
 }
 
 .search-icon {
