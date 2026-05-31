@@ -61,6 +61,13 @@ a { color: inherit; text-decoration: none; }
 .nav-logo span {
   color: var(--accent);
 }
+.nav-logo .logo-n,
+.nav-logo .logo-o,
+.nav-logo .logo-b,
+.nav-logo .logo-l {
+  display: inline-block;
+  color: inherit;
+}
 
 /* search */
 .nav-search {

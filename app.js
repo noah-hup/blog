@@ -20,7 +20,6 @@
 
   function init() {
     document.title = CONFIG.blogTitle;
-    navLogo.innerHTML = CONFIG.blogTitle + '<span>.</span>';
 
     const apiUrl = `https://api.github.com/repos/${CONFIG.githubRepo}/contents/${CONFIG.postsDir}`;
     const getIds = fetch(apiUrl)
@@ -86,7 +85,14 @@
     });
 
     backBtn.addEventListener("click", goHome);
-    navLogo.addEventListener("click", e => { e.preventDefault(); goHome(); });
+    navLogo.addEventListener("click", e => {
+      e.preventDefault();
+      if (!location.hash.startsWith("#post/")) {
+        animateLogo();
+      } else {
+        goHome();
+      }
+    });
     window.addEventListener("hashchange", handleHash);
   }
 
@@ -283,6 +289,90 @@
       meta[key] = val;
     });
     return { meta, body };
+  }
+
+  // ── Logo animation ───────────────────────────────────────────────────────
+  let logoAnimating = false;
+
+  function animateLogo() {
+    if (logoAnimating) return;
+    logoAnimating = true;
+
+    const dot = navLogo.querySelector(".logo-dot");
+    const letters = ["logo-n","logo-o","logo-b","logo-l"].map(c => navLogo.querySelector("." + c));
+
+    // Create a flying ball clone
+    const dotRect = dot.getBoundingClientRect();
+    const ball = document.createElement("div");
+    ball.style.cssText = `
+      position: fixed;
+      left: ${dotRect.left}px;
+      top: ${dotRect.top}px;
+      width: ${dotRect.width}px;
+      height: ${dotRect.height}px;
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--accent);
+      pointer-events: none;
+      z-index: 9999;
+      line-height: 1;
+    `;
+    ball.textContent = ".";
+    document.body.appendChild(ball);
+    dot.style.opacity = "0";
+
+    // Bezier curve: fly up-right in an arc, come back
+    const startX = dotRect.left;
+    const startY = dotRect.top;
+    const peakX = startX + 120;
+    const peakY = startY - 90;
+    const duration = 700;
+    const start = performance.now();
+
+    function easeInOut(t) {
+      return t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+    }
+
+    function step(now) {
+      const raw = Math.min((now - start) / duration, 1);
+      const t = easeInOut(raw);
+
+      // Quadratic bezier: start → peak → start
+      const x = (1-t)*(1-t)*startX + 2*(1-t)*t*peakX + t*t*startX;
+      const y = (1-t)*(1-t)*startY + 2*(1-t)*t*peakY + t*t*startY;
+
+      ball.style.left = x + "px";
+      ball.style.top = y + "px";
+
+      if (raw < 1) {
+        requestAnimationFrame(step);
+      } else {
+        // Ball back — remove it, restore dot, ripple letters
+        ball.remove();
+        dot.style.opacity = "";
+        rippleLetters(letters);
+        logoAnimating = false;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function rippleLetters(letters) {
+    letters.forEach((el, i) => {
+      setTimeout(() => {
+        el.style.transition = "transform 0.2s cubic-bezier(.36,.07,.19,.97)";
+        el.style.transform = "translateY(-6px)";
+        setTimeout(() => {
+          el.style.transform = "translateY(2px)";
+          setTimeout(() => {
+            el.style.transform = "";
+            setTimeout(() => { el.style.transition = ""; }, 200);
+          }, 120);
+        }, 140);
+      }, i * 45);
+    });
   }
 
   document.addEventListener("DOMContentLoaded", init);
