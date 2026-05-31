@@ -322,25 +322,24 @@
     document.body.appendChild(ball);
     dot.style.opacity = "0";
 
-    // Bezier curve: fly up-right in an arc, come back
-    const startX = dotRect.left;
-    const startY = dotRect.top;
-    const peakX = startX + 120;
-    const peakY = startY - 90;
-    const duration = 700;
+    // Cubic bezier S-curve: start → goes up-right → swoops down-right → returns
+    const sx = dotRect.left, sy = dotRect.top;
+    const c1x = sx + 60,  c1y = sy - 80;  // first control: up-right
+    const c2x = sx + 120, c2y = sy + 60;  // second control: down-right
+    const duration = 900;
     const start = performance.now();
 
-    function easeInOut(t) {
-      return t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
-    }
+    // ease-in: starts slow, accelerates
+    function easeIn(t) { return t * t * t; }
 
     function step(now) {
       const raw = Math.min((now - start) / duration, 1);
-      const t = easeInOut(raw);
+      const t = easeIn(raw);
 
-      // Quadratic bezier: start → peak → start
-      const x = (1-t)*(1-t)*startX + 2*(1-t)*t*peakX + t*t*startX;
-      const y = (1-t)*(1-t)*startY + 2*(1-t)*t*peakY + t*t*startY;
+      // Cubic bezier: start → c1 → c2 → start
+      const mt = 1 - t;
+      const x = mt*mt*mt*sx + 3*mt*mt*t*c1x + 3*mt*t*t*c2x + t*t*t*sx;
+      const y = mt*mt*mt*sy + 3*mt*mt*t*c1y + 3*mt*t*t*c2y + t*t*t*sy;
 
       ball.style.left = x + "px";
       ball.style.top = y + "px";
@@ -348,7 +347,6 @@
       if (raw < 1) {
         requestAnimationFrame(step);
       } else {
-        // Ball back — remove it, restore dot, ripple letters
         ball.remove();
         dot.style.opacity = "";
         rippleLetters(letters);
@@ -360,7 +358,7 @@
   }
 
   function rippleLetters(letters) {
-    letters.forEach((el, i) => {
+    [...letters].reverse().forEach((el, i) => {
       setTimeout(() => {
         el.style.transition = "transform 0.2s cubic-bezier(.36,.07,.19,.97)";
         el.style.transform = "translateY(-6px)";
