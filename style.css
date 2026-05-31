@@ -36,7 +36,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .top-bar-inner {
-  max-width: 1192px;
+  max-width: var(--content-w);
   margin: 0 auto;
   padding: 0 24px;
   height: var(--nav-h);
@@ -60,6 +60,7 @@ a { color: inherit; text-decoration: none; }
 .nav-search {
   width: 220px;
   flex-shrink: 0;
+  margin-left: auto;
   position: relative;
   display: flex;
   align-items: center;
