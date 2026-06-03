@@ -94,6 +94,28 @@
     backBtn.addEventListener("click", goHome);
     navLogo.addEventListener("click", e => { e.preventDefault(); goHome(); });
     window.addEventListener("hashchange", handleHash);
+
+    loadIdeas();
+  }
+
+  function loadIdeas() {
+    fetch("ideas/ideas.json")
+      .then(r => r.json())
+      .then(ideas => {
+        if (!ideas.length) return;
+        const wrap = document.getElementById("ideas-wrap");
+        wrap.innerHTML = `
+          <p class="ideas-heading">coming up</p>
+          <div class="ideas-list">
+            ${ideas.map(i => `
+              <div class="idea-item">
+                <span class="idea-title">${i.title}</span>
+                ${i.description ? `<span class="idea-desc">${i.description}</span>` : ""}
+              </div>
+            `).join("")}
+          </div>`;
+      })
+      .catch(() => {});
   }
 
   // ── Routing ──────────────────────────────────────────────────────────────

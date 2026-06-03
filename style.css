@@ -420,6 +420,52 @@ a { color: inherit; text-decoration: none; }
 }
 .load-more-btn:hover { background: var(--tag-bg); }
 
+/* ── Ideas / coming soon ── */
+.ideas-wrap {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: 24px 24px 0;
+}
+
+.ideas-heading {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+.ideas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.idea-item {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+}
+.idea-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.idea-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.idea-desc {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
 /* ── Post view ── */
 .post-wrap {
   max-width: var(--content-w);
