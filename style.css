@@ -11,8 +11,8 @@
   --accent: #c8a96e;
   --nav-h: 60px;
   --content-w: 900px;
-  --serif: 'Source Serif 4', Georgia, serif;
-  --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html { }
@@ -21,9 +21,10 @@ body {
   font-family: var(--sans);
   background: var(--bg);
   color: var(--text);
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.6;
   font-weight: 300;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -50,9 +51,9 @@ a { color: inherit; text-decoration: none; }
 
 .nav-logo {
   font-family: var(--serif);
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   color: var(--text);
   white-space: nowrap;
   flex-shrink: 0;
@@ -225,16 +226,20 @@ a { color: inherit; text-decoration: none; }
 .post-card {
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 20px 16px;
   border-radius: 8px;
   cursor: pointer;
   max-width: var(--content-w);
-  transition: box-shadow 0.15s;
+  margin: 0 -16px;
+  border: 1px solid transparent;
+  transition: box-shadow 0.15s, border-color 0.15s;
 }
 .post-card:not(:last-child) {
   border-bottom: 1px solid var(--border);
 }
 .post-card:hover {
+  border-color: var(--border);
+  border-bottom-color: var(--border) !important;
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
 }
 
@@ -288,9 +293,9 @@ a { color: inherit; text-decoration: none; }
 
 .card-title {
   font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.3;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.25;
   color: var(--text);
   margin-bottom: 7px;
   display: -webkit-box;
@@ -298,12 +303,12 @@ a { color: inherit; text-decoration: none; }
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  letter-spacing: -0.3px;
+  letter-spacing: 0.01em;
 }
 
 .card-subtitle {
   font-family: var(--serif);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 300;
   font-style: italic;
   color: var(--text-muted);
@@ -424,7 +429,7 @@ a { color: inherit; text-decoration: none; }
 .ideas-wrap {
   max-width: var(--content-w);
   margin: 0 auto;
-  padding: 24px 24px 0;
+  padding: 24px 24px 56px;
 }
 
 .ideas-heading {
@@ -454,8 +459,8 @@ a { color: inherit; text-decoration: none; }
 
 .idea-title {
   font-family: var(--serif);
-  font-size: 17px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 300;
   color: var(--text-muted);
   margin-bottom: 3px;
 }
@@ -525,17 +530,17 @@ a { color: inherit; text-decoration: none; }
 
 .post-title {
   font-family: var(--serif);
-  font-size: clamp(26px, 5vw, 38px);
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+  font-size: clamp(32px, 5vw, 46px);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
   color: var(--text);
   margin-bottom: 14px;
 }
 
 .post-subtitle {
   font-family: var(--serif);
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 300;
   font-style: italic;
   color: var(--text-muted);
@@ -570,9 +575,9 @@ a { color: inherit; text-decoration: none; }
 /* ── Post body ── */
 .post-body {
   font-family: var(--serif);
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 300;
-  line-height: 1.85;
+  line-height: 1.9;
   color: var(--text);
 }
 
@@ -586,9 +591,9 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.25;
   color: var(--text);
 }
-.post-body h1 { font-size: 30px; }
-.post-body h2 { font-size: 24px; }
-.post-body h3 { font-size: 20px; }
+.post-body h1 { font-size: 36px; font-weight: 400; }
+.post-body h2 { font-size: 28px; font-weight: 400; }
+.post-body h3 { font-size: 23px; font-weight: 400; }
 
 .post-body p { margin-bottom: 26px; }
 
