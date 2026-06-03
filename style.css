@@ -230,7 +230,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: 8px;
   cursor: pointer;
   max-width: var(--content-w);
-  margin: 0 -16px;
+  margin: 0;
   border: 1px solid var(--border);
   box-shadow: 0 1px 6px rgba(0,0,0,0.05);
   transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
@@ -655,7 +655,7 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 680px) {
   .top-bar-inner { padding: 0 16px; }
   .tab-bar { padding: 0 16px; }
-  .feed-wrap { padding: 0 16px 56px; }
+  .feed-wrap { padding: 0 24px 56px; }
   .post-wrap { padding: 20px 16px 64px; }
   .card-thumb, .card-thumb-placeholder { width: 100px; height: 67px; }
   .card-title { font-size: 18px; }
