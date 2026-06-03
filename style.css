@@ -145,6 +145,66 @@ a { color: inherit; text-decoration: none; }
 .search-tag-pill:hover { color: var(--text); }
 .search-tag-pill.active { color: var(--text); font-weight: 500; }
 
+/* ── Contact button ── */
+.contact-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: none;
+  padding: 7px 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.contact-btn:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+.contact-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  padding: 6px;
+  z-index: 200;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.contact-dropdown.hidden { display: none; }
+
+.contact-heading {
+  font-size: 13px;
+  color: var(--text-light);
+  padding: 4px 10px 6px;
+}
+
+.contact-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: background 0.12s, color 0.12s;
+}
+.contact-option:hover {
+  background: var(--tag-bg);
+  color: var(--text);
+}
+
 /* ── Views ── */
 .view { display: none; }
 .view.active { display: block; }

@@ -68,9 +68,21 @@
       searchInput.focus();
     });
 
+    const contactBtn = document.getElementById("contact-btn");
+    const contactDropdown = document.getElementById("contact-dropdown");
+
+    contactBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      contactDropdown.classList.toggle("hidden");
+      tagDropdown.classList.add("hidden");
+    });
+
     document.addEventListener("click", e => {
       if (!document.getElementById("nav-search").contains(e.target)) {
         tagDropdown.classList.add("hidden");
+      }
+      if (!document.getElementById("contact-wrap").contains(e.target)) {
+        contactDropdown.classList.add("hidden");
       }
     });
 
