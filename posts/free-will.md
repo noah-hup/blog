@@ -6,6 +6,7 @@ Jede Entscheidung scheint **entweder bestimmt oder zufällig** zu sein. Ist sie 
 
 ---
 
-Nach Schopenhauer kann ein Mensch **„tun was er will, aber nicht wollen, was er will“**. Man handelt aus Wünschen, die man hat, statt aus rational begründetem Wollen, da sich der Mensch sonst jederzeit die exakte Situation wünschen könne, in der er gerade ist, wodurch ein gesellschaftlich verbreitetes maximales Glücksempfinden herrschen würde. 
+Nach Schopenhauer kann ein Mensch **„tun, was er will, aber nicht wollen, was er will“**. Zwar handelt man nach Wünschen, hat diese aber nicht frei gewählt. Wäre unser Wollen kontrollierbar, könnte der Mensch sich jederzeit die exakte Situation wünschen, in der er sich befindet, wodurch man unabhängig von äußeren Umstnden kontinuierlich zufrieden wäre.
+
 
 
