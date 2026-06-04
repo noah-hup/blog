@@ -412,21 +412,6 @@ a { color: inherit; text-decoration: none; }
 }
 .no-results.hidden { display: none; }
 
-/* ── Load more ── */
-.load-more-wrap { padding: 32px 0; max-width: var(--content-w); }
-
-.load-more-btn {
-  padding: 9px 24px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
-  background: none;
-  font-family: var(--sans);
-  font-size: 14px;
-  color: var(--text);
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-}
-.load-more-btn:hover { background: var(--tag-bg); }
 
 /* ── Ideas / coming soon ── */
 .ideas-wrap {

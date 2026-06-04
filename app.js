@@ -3,7 +3,6 @@
   let filteredPosts = [];
   let activeTag = "all";
   let searchQuery = "";
-  let visibleCount = CONFIG.postsPerPage;
 
   const homeView = document.getElementById("home-view");
   const postView = document.getElementById("post-view");
@@ -11,7 +10,6 @@
   const noResults = document.getElementById("no-results");
   const searchInput = document.getElementById("search-input");
   const searchClear = document.getElementById("search-clear");
-  const loadMoreWrap = document.getElementById("load-more-wrap");
   const backBtn = document.getElementById("back-btn");
   const navLogo = document.getElementById("nav-logo");
   const tagDropdown = document.getElementById("search-tag-dropdown");
@@ -51,7 +49,6 @@
     searchInput.addEventListener("input", () => {
       searchQuery = searchInput.value.trim().toLowerCase();
       searchClear.classList.toggle("visible", searchQuery.length > 0);
-      visibleCount = CONFIG.postsPerPage;
       applyFilters();
     });
 
@@ -63,7 +60,6 @@
       searchInput.value = "";
       searchQuery = "";
       searchClear.classList.remove("visible");
-      visibleCount = CONFIG.postsPerPage;
       applyFilters();
       searchInput.focus();
     });
@@ -84,11 +80,6 @@
       if (!document.getElementById("contact-wrap").contains(e.target)) {
         contactDropdown.classList.add("hidden");
       }
-    });
-
-    document.getElementById("load-more-btn").addEventListener("click", () => {
-      visibleCount += CONFIG.postsPerPage;
-      renderFeed();
     });
 
     backBtn.addEventListener("click", goHome);
@@ -182,7 +173,6 @@
 
   function setTag(tag) {
     activeTag = tag;
-    visibleCount = CONFIG.postsPerPage;
     updatePills();
     applyFilters();
   }
@@ -203,17 +193,12 @@
   // ── Feed ─────────────────────────────────────────────────────────────────
   function renderFeed() {
     feed.innerHTML = "";
-    const slice = filteredPosts.slice(0, visibleCount);
-    const hasMore = filteredPosts.length > visibleCount;
-
     if (filteredPosts.length === 0) {
       noResults.classList.remove("hidden");
     } else {
       noResults.classList.add("hidden");
-      slice.forEach(post => feed.appendChild(createCard(post)));
+      filteredPosts.forEach(post => feed.appendChild(createCard(post)));
     }
-
-    loadMoreWrap.style.display = hasMore ? "block" : "none";
   }
 
   function createCard(post) {
