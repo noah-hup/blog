@@ -26,8 +26,6 @@ Gleichermaßen unterstreicht auch die Entscheidung, dem Wunsch nicht nachzugehen
 ---
 
 ## Extraneous factors in judicial decisions
- Nach einer Snack- oder Essenspause betrug die Wahrscheinlichkeit erneut die ursprünglicgen 65%: die Chancen auf eine positive Entscheidung wird somit maßgeblich durch äußere Faktoren beeinflusst, obwohl die Richter vermutlich behaupten, sie haben strukturiert nach der Aktenlage entschieden. Dieses Beispiel verdeutlicht die Illusion der frei getroffenen Wahl und zeigt, dass die Annahme bewusst zu handeln keineswegs als Gegeargument des Determinismus verstanden werden darf.
-
 Danziger, Levav und Avnaim-Pesso (2011) untersuchten, ob richterliche Entscheidungen ausschließlich auf Gesetzen und der Aktenlage beruhen. Untersucht wurden 1112 Bewährungs- bzw. Entlassungsentscheidungen in einem Beobachtungszeitraum von 10 Monaten. Die beteiligten Richter verfügten über eine durchschnittliche Berufserfahrung von 22,5 Jahren. Die Studie ergab, dass die Wahrscheinlichkeit einer positiven Entscheidung für Gefangene am Anfang eines Sitzungsteils bei etwa 65 % lag, im Verlauf der Sitzung jedoch auf fast 0 % fiel. Nach einer Snack- oder Essenspause stieg die Wahrscheinlichkeit erneut auf ungefähr 65 %. Die Chancen auf eine positive Entscheidung wurden somit offenbar maßgeblich durch äußere Faktoren beeinflusst, obwohl die Richter vermutlich behaupten würden, strukturiert nach Aktenlage und rechtlichen Kriterien entschieden zu haben. 
 
 ---
