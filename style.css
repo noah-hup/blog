@@ -216,6 +216,7 @@ a { color: inherit; text-decoration: none; }
 /* ── Feed ── */
 .feed-wrap {
   max-width: var(--content-w);
+  width: 100%;
   margin: 0 auto;
   padding: 8px 24px 80px;
 }
@@ -229,6 +230,7 @@ a { color: inherit; text-decoration: none; }
   padding: 20px 16px;
   border-radius: 8px;
   cursor: pointer;
+  width: 100%;
   max-width: var(--content-w);
   margin: 0;
   border: 1px solid var(--border);
@@ -613,6 +615,10 @@ a { color: inherit; text-decoration: none; }
   padding: 4px 0 4px 24px;
   font-style: italic;
   color: var(--text-muted);
+}
+
+.post-body blockquote p {
+  margin: 0;
 }
 
 .post-body code {
