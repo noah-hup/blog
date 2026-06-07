@@ -414,6 +414,10 @@ a { color: inherit; text-decoration: none; }
 
 
 /* ── Ideas / coming soon ── */
+.ideas-wrap:empty {
+  display: none;
+}
+
 .ideas-wrap {
   max-width: var(--content-w);
   margin: 0 auto;
