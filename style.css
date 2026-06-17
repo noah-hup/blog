@@ -221,7 +221,7 @@ a { color: inherit; text-decoration: none; }
   padding: 40px 24px 80px;
 }
 
-.feed { display: flex; flex-direction: column; }
+.feed { display: flex; flex-direction: column; gap: 16px; }
 
 /* ── Post card ── */
 .post-card {
