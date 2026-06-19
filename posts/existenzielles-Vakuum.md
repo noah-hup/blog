@@ -30,4 +30,4 @@ Die Grundstruktur menschlicher Existenz liege im Zusammenspiel von Natur, materi
 ## Abschluss
 Der moderne Sinnverlust liegt somit nicht auf individueller Ebene, sondern zeigt sich als Folge tiefgreifender kultureller, sozialer und ökonomischer Umbrüche. Neben dem Verlust traditioneller Sicherheiten und erfüllender Formen der Arbeit wächst die ambivalente Freiheit. Sinn wird nicht mehr vorgegeben, sondern erscheint als etwas, das gesucht und immer wieder neu hervorgebracht werden muss.
 
-> „Wer ein Warum zu leben hat, erträgt fast jedes Wie.“ –Nietzsche
+> „Wer ein Warum zu leben hat, erträgt fast jedes Wie.“ – Nietzsche
