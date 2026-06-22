@@ -4,7 +4,7 @@ subtitle: "Eine multiperspektivische Betrachtung des existenziellen Vakuums"
 author: "Noah Hupfeld"
 date: "2026-06-17"
 tags: ["Philosophie", "Sinn"]
-coverImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAbN8_6goN-MJ543NQGAMBFpPUb9ZjiOYGdzT213dQeQ&s=10"
+coverImage: "https://austria-forum.org/attach/Wissenssammlungen/Essays/Vermischtes/20._Todestag_Viktor_Frankl/scaled-900x426-Viktor-Frankl.jpg"
 ---
 
 > „Manchmal stürzen die Kulissen ein. […] Eines Tages aber erhebt sich das ‚Warum?‘, und mit diesem Überdruss, in den sich das Erstaunen mischt, fängt alles an.“ — Albert Camus
