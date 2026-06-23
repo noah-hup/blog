@@ -44,6 +44,8 @@ In der Revolte lehnt sich der Mensch täglich gegen das Absurde auf. Er versteht
 
 ---
 
+![image](https://www.ancient-origins.de/sites/default/files/field/image/legende-von-sisyphos.jpg)
+
 ## Sisyphos
 Die Figur aus der griechischen Mythologie ist dazu verurteilt, bis in alle Ewigkeit einen Felsen einen Berg hinaufzurollen, der ihm kurz vor dem Gipfel wieder hinunterrollt. Sisyphos dient als Figur des absurden Helden, als Inbegriff des modernen Menschen, der den fehlenden Sinn seiner Tätigkeit begreift, dennoch stur bleibt und nicht um Gnade bittet. Er macht den Felsen zu seinem eigenen Projekt, unterliegt keinem übergeordneten Sinn und erkennt sein Schicksal als zu ihm gehörig an. Er überwindet es nicht durch ein Entkommen oder eine Flucht, sondern durch bewusstes Annehmen und Weitermachen.
 
