@@ -9,12 +9,11 @@ coverImage: "https://www1.wdr.de/radio/wdr5/sendungen/zeitzeichen/camus-albert-1
 
 > „Es gibt nur ein wirklich ernstes philosophisches Problem: den Selbstmord. Sich entscheiden, ob das Leben es wert ist, gelebt zu werden oder nicht, heißt, auf die Grundfrage der Philosophie antworten.“
 
----
-
 Camus argumentiert, dass das Leben keinen inhärenten Sinn besitzt. Damit wird die Frage, ob das Leben lebenswert ist, zur einzig wirklich ernsten philosophischen Frage, da sie reale und existentielle Konsequenzen nach sich zieht. Alle anderen philosophischen Fragen seien zweitrangig oder bloße „Spielereien“, solange die Grundfrage unbeantwortet bleibt. Erzwingt die Sinnlosigkeit des Lebens den Selbstmord?
 
-## Das Absurde
+---
 
+## Das Absurde
 Das Absurde besteht weniger in einfacher Sinnlosigkeit als vielmehr im Konflikt zwischen Mensch und Welt. „Es ist die Entzweiung zwischen dem begehrenden Geist und der enttäuschenden Welt […].“ Folglich herrscht eine grundlegende Dualität: Der Mensch sehnt sich nach Sinn, Ordnung und Erklärungen, während die Welt gleichgültig bleibt und schweigt. Jeder Versuch, die Welt endgültig zu ordnen oder vollständig zu verstehen, scheitert spätestens an der Erkenntnis ihrer Undurchdringlichkeit.
 
 > „Manchmal stürzen die Kulissen ein. Aufstehen, Straßenbahn, vier Stunden Büro oder Fabrik, Essen, Straßenbahn, vier Stunden Arbeit, Essen, Schlafen, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, immer derselbe Rhythmus […]. Eines Tages aber erhebt sich das ‚Warum?‘, und mit diesem Überdruss, in den sich das Erstaunen mischt, fängt alles an. ‚Fängt an‘ – das ist wichtig.“
@@ -26,7 +25,6 @@ Das Gefühl der Absurdität kann plötzlich und mitten im Alltag entstehen, wenn
 ---
 
 ## Fremdheit
-
 Noch tiefer als die Erfahrung der Zeit liegt die Fremdheit gegenüber der Welt. Sie zeigt sich in dem Moment, in dem der Mensch die Undurchdringlichkeit der Welt erkennt und zugleich begreift, dass sein tiefster Wunsch nach Sinn unerfüllt bleibt. Sobald der violette Himmel seine Romantik und die im Wind wehenden Blätter ihre Schönheit verlieren, wird ihm bewusst, dass er selbst es ist, der den weltlichen Dingen ihre Bedeutung zuschreibt. Sie verlieren „den trügerischen Sinn, in den wir sie hüllten“. Ebenso bedeutsam ist die Fremdheit gegenüber anderen Menschen, bei der „ihre sinnlose Pantomime alles um sie herum stumpfsinnig erscheinen“ lässt. Dieses Gefühl kann sich auch gegen den Menschen selbst richten, der sich dann als fremd und unbedeutend wahrnimmt. Das Absurde zeigt sich also nicht nur im Verhältnis zur Welt, sondern auch in dem des Menschen zu sich selbst.
 
 > „dieser unberechenbare Sturz vor dem Bilde dessen, was wir sind … der Fremde, der uns … in einem Spiegel begegnet … [und] den wir auf unseren eigenen Fotografien wiederfinden“.
@@ -34,7 +32,6 @@ Noch tiefer als die Erfahrung der Zeit liegt die Fremdheit gegenüber der Welt. 
 ---
 
 ## Das Leben in der Absurdität
-
 Es stellt sich die Frage, wie ein Leben in der Sinnlosigkeit, im Absurden, möglich ist. Doch Camus begreift den Selbstmord nicht als Auflehnung gegen die Sinnlosigkeit, sondern im Gegenteil als Flucht, durch die das Problem nicht gelöst, sondern gänzlich umgangen wird. Der Selbstmord bestätigt damit die Annahme, dass ein Leben nur dann lebenswert sei, wenn es einen endgültigen Sinn hat.
 
 > „Leben heißt, das Absurde leben lassen. Es leben lassen heißt vor allem, ihm ins Auge sehen.“
@@ -50,7 +47,6 @@ In der Revolte lehnt sich der Mensch täglich gegen das Absurde auf. Er versteht
 ![image](https://www.ancient-origins.de/sites/default/files/field/image/legende-von-sisyphos.jpg)
 
 ## Sisyphos
-
 Die Figur aus der griechischen Mythologie ist dazu verurteilt, bis in alle Ewigkeit einen Felsen einen Berg hinaufzuwälzen, der ihm kurz vor dem Gipfel wieder hinabrollt. Sisyphos verkörpert den absurden Helden, den Inbegriff des modernen Menschen, der den fehlenden Sinn seiner Tätigkeit begreift, dennoch unbeirrt bleibt und nicht um Gnade bittet. Er macht den Felsen zu seinem Projekt, unterliegt keinem übergeordneten Sinn und erkennt sein Schicksal als das eigene an. Er überwindet es nicht durch Flucht, sondern durch bewusstes Annehmen und Weitermachen.
 
 > „Wir müssen uns Sisyphos als einen glücklichen Menschen vorstellen.“
