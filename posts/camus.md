@@ -1,5 +1,5 @@
 ---
-title: "Einführung in Albert Camus"
+title: "Albert Camus"
 subtitle: "Erzwingt die Sinnlosigkeit den Selbstmord?"
 author: "Noah Hupfeld"
 date: "2026-06-23"
