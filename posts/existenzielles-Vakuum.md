@@ -8,6 +8,7 @@ coverImage: "https://substackcdn.com/image/fetch/$s_!yceO!,f_auto,q_auto:good,fl
 
 
 
+
 > „Manchmal stürzen die Kulissen ein. […] Eines Tages aber erhebt sich das ‚Warum?‘, und mit diesem Überdruss, in den sich das Erstaunen mischt, fängt alles an.“ — Albert Camus
 
 ---
