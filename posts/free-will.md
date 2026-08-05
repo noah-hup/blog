@@ -7,7 +7,6 @@ tags: ["Philosophie"]
 coverImage: "https://i.pinimg.com/736x/2d/3f/4b/2d3f4b90da8ab4f0b1db46f42a598185.jpg"
 ---
 
-
 > Der Mensch erlebt sich als ein subjektiv freies Wesen, dessen besondere Stellung aus der Fähigkeit zu rationalen
 > und autonomen Entscheidungen hervorgeht
 
