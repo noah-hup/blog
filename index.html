@@ -13,45 +13,18 @@
 </head>
 <body>
 
+  <div class="reading-progress hidden" id="reading-progress">
+    <div class="reading-progress-bar" id="reading-progress-bar"></div>
+  </div>
+
   <!-- HOME VIEW -->
   <main id="home-view" class="view active">
 
-    <!-- TOP BAR: logo + search -->
-    <div class="top-bar-wrap">
-      <div class="top-bar-inner">
-        <a href="#" class="nav-logo" id="nav-logo">Nobl<span>.</span></a>
-        <div class="nav-search" id="nav-search">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input type="text" id="search-input" placeholder="Search" autocomplete="off" />
-          <button class="search-clear" id="search-clear" aria-label="Clear search">×</button>
-          <div class="search-tag-dropdown hidden" id="search-tag-dropdown"></div>
-        </div>
-        <div class="contact-wrap" id="contact-wrap">
-          <button class="contact-btn" id="contact-btn" aria-label="Get in touch">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-          </button>
-          <div class="contact-dropdown hidden" id="contact-dropdown">
-            <p class="contact-heading">ideas or feedback?</p>
-            <a href="mailto:noah.hupfeld@gmail.com" class="contact-option">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
-                <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/>
-              </svg>
-              Email
-            </a>
-            <a href="https://instagram.com/noah.hup" target="_blank" rel="noopener" class="contact-option">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
-                <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
-              </svg>
-              Instagram
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- HEADER -->
+    <header class="site-header">
+      <h1 class="site-header-name">Noah Hupfeld</h1>
+      <p class="site-header-label">Essays</p>
+    </header>
 
     <!-- COMING SOON -->
     <div class="ideas-wrap" id="ideas-wrap"></div>
@@ -90,7 +63,6 @@
         </div>
         <h1 class="post-title" id="post-title"></h1>
         <p class="post-subtitle" id="post-subtitle"></p>
-        <div class="post-tags" id="post-tags"></div>
         <div class="post-cover-wrap" id="post-cover-wrap">
           <img class="post-cover" id="post-cover" src="" alt="" />
         </div>
@@ -98,6 +70,16 @@
       </article>
     </div>
   </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="mailto:noah.hupfeld@gmail.com">Email</a>
+      <span class="footer-dot">·</span>
+      <a href="https://instagram.com/noah.hup" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <p class="footer-copyright" id="footer-copyright"></p>
+  </footer>
 
   <script src="app.js"></script>
 </body>

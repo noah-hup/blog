@@ -1,22 +1,19 @@
 (() => {
   let allPosts = [];
-  let filteredPosts = [];
-  let activeTag = "all";
-  let searchQuery = "";
 
   const homeView = document.getElementById("home-view");
   const postView = document.getElementById("post-view");
   const feed = document.getElementById("feed");
   const noResults = document.getElementById("no-results");
-  const searchInput = document.getElementById("search-input");
-  const searchClear = document.getElementById("search-clear");
   const backBtn = document.getElementById("back-btn");
-  const navLogo = document.getElementById("nav-logo");
-  const tagDropdown = document.getElementById("search-tag-dropdown");
+  const readingProgress = document.getElementById("reading-progress");
+  const readingProgressBar = document.getElementById("reading-progress-bar");
 
   function init() {
     document.title = CONFIG.blogTitle;
-    navLogo.innerHTML = CONFIG.blogTitle + '<span>.</span>';
+
+    document.getElementById("footer-copyright").textContent =
+      `© ${new Date().getFullYear()} ${CONFIG.authorName}`;
 
     const apiUrl = `https://api.github.com/repos/${CONFIG.githubRepo}/contents/${CONFIG.postsDir}`;
     const getIds = fetch(apiUrl)
@@ -38,53 +35,16 @@
       )))
       .then(posts => {
         allPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        buildTagDropdown();
-        applyFilters();
+        renderFeed();
         handleHash();
       })
       .catch(() => {
         feed.innerHTML = '<p style="color:#999;padding:32px 0">Could not load posts.</p>';
       });
 
-    searchInput.addEventListener("input", () => {
-      searchQuery = searchInput.value.trim().toLowerCase();
-      searchClear.classList.toggle("visible", searchQuery.length > 0);
-      applyFilters();
-    });
-
-    searchInput.addEventListener("focus", () => {
-      tagDropdown.classList.remove("hidden");
-    });
-
-    searchClear.addEventListener("click", () => {
-      searchInput.value = "";
-      searchQuery = "";
-      searchClear.classList.remove("visible");
-      applyFilters();
-      searchInput.focus();
-    });
-
-    const contactBtn = document.getElementById("contact-btn");
-    const contactDropdown = document.getElementById("contact-dropdown");
-
-    contactBtn.addEventListener("click", e => {
-      e.stopPropagation();
-      contactDropdown.classList.toggle("hidden");
-      tagDropdown.classList.add("hidden");
-    });
-
-    document.addEventListener("click", e => {
-      if (!document.getElementById("nav-search").contains(e.target)) {
-        tagDropdown.classList.add("hidden");
-      }
-      if (!document.getElementById("contact-wrap").contains(e.target)) {
-        contactDropdown.classList.add("hidden");
-      }
-    });
-
     backBtn.addEventListener("click", goHome);
-    navLogo.addEventListener("click", e => { e.preventDefault(); goHome(); });
     window.addEventListener("hashchange", handleHash);
+    window.addEventListener("scroll", updateReadingProgress, { passive: true });
 
     loadIdeas();
   }
@@ -123,6 +83,7 @@
   function showHome() {
     homeView.classList.add("active");
     postView.classList.remove("active");
+    readingProgress.classList.add("hidden");
     if (location.hash.startsWith("#post/")) history.pushState(null, "", location.pathname);
   }
 
@@ -134,70 +95,29 @@
   function showPost(post) {
     homeView.classList.remove("active");
     postView.classList.add("active");
+    readingProgress.classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: "instant" });
+    updateReadingProgress();
     history.pushState(null, "", `#post/${encodeURIComponent(post.id)}`);
     renderPost(post);
   }
 
-  // ── Tag dropdown ─────────────────────────────────────────────────────────
-  function buildTagDropdown() {
-    const counts = {};
-    allPosts.forEach(p => (p.tags || []).forEach(t => { counts[t] = (counts[t] || 0) + 1; }));
-    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([t]) => t);
-
-    tagDropdown.innerHTML = "";
-
-    const allPill = makePill("All", "all");
-    tagDropdown.appendChild(allPill);
-    sorted.forEach(tag => tagDropdown.appendChild(makePill(tag, tag)));
-    updatePills();
-  }
-
-  function makePill(label, tag) {
-    const btn = document.createElement("button");
-    btn.className = "search-tag-pill";
-    btn.textContent = label;
-    btn.addEventListener("mousedown", e => {
-      e.preventDefault();
-      setTag(tag);
-    });
-    return btn;
-  }
-
-  function updatePills() {
-    tagDropdown.querySelectorAll(".search-tag-pill").forEach(btn => {
-      const tag = btn.textContent === "All" ? "all" : btn.textContent;
-      btn.classList.toggle("active", tag === activeTag);
-    });
-  }
-
-  function setTag(tag) {
-    activeTag = tag;
-    updatePills();
-    applyFilters();
-  }
-
-  // ── Filtering ────────────────────────────────────────────────────────────
-  function applyFilters() {
-    filteredPosts = allPosts.filter(post => {
-      const matchTag = activeTag === "all" || (post.tags || []).includes(activeTag);
-      if (!matchTag) return false;
-      if (!searchQuery) return true;
-      const haystack = [post.title, post.subtitle, post.author, ...(post.tags || []), post.content || ""]
-        .join(" ").toLowerCase();
-      return haystack.includes(searchQuery);
-    });
-    renderFeed();
+  function updateReadingProgress() {
+    if (!postView.classList.contains("active")) return;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+    readingProgressBar.style.width = pct + "%";
   }
 
   // ── Feed ─────────────────────────────────────────────────────────────────
   function renderFeed() {
     feed.innerHTML = "";
-    if (filteredPosts.length === 0) {
+    if (allPosts.length === 0) {
       noResults.classList.remove("hidden");
     } else {
       noResults.classList.add("hidden");
-      filteredPosts.forEach(post => feed.appendChild(createCard(post)));
+      allPosts.forEach(post => feed.appendChild(createCard(post)));
     }
   }
 
@@ -209,19 +129,17 @@
     const dateStr = formatDate(post.date);
 
     const thumbHtml = post.coverImage
-      ? `<img class="card-thumb" src="${escHtml(post.coverImage)}" alt="" loading="lazy" />`
-      : `<div class="card-thumb-placeholder"></div>`;
+      ? `<div class="card-image-wrap"><img class="card-image" src="${escHtml(post.coverImage)}" alt="" loading="lazy" /></div>`
+      : "";
 
     card.innerHTML = `
-      <div class="card-body-row">
-        <div class="card-body-left">
-          <div class="card-title">${escHtml(post.title)}</div>
-          ${post.subtitle ? `<div class="card-subtitle">${escHtml(post.subtitle)}</div>` : ""}
+      ${thumbHtml}
+      <div class="card-content">
+        <div class="card-title">${escHtml(post.title)}</div>
+        ${post.subtitle ? `<div class="card-subtitle">${escHtml(post.subtitle)}</div>` : ""}
+        <div class="card-stats-row">
+          <span class="card-date-read">${dateStr} · ${readTime} min read</span>
         </div>
-        ${thumbHtml}
-      </div>
-      <div class="card-stats-row">
-        <span class="card-date-read">${dateStr} · ${readTime} min read</span>
       </div>
     `;
 
@@ -250,10 +168,6 @@
     const subtitleEl = document.getElementById("post-subtitle");
     subtitleEl.textContent = post.subtitle || "";
     subtitleEl.style.display = post.subtitle ? "" : "none";
-
-    document.getElementById("post-tags").innerHTML = (post.tags || []).map(t =>
-      `<span class="post-tag-badge">${escHtml(t)}</span>`
-    ).join("");
 
     const coverWrap = document.getElementById("post-cover-wrap");
     const coverEl = document.getElementById("post-cover");
