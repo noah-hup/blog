@@ -9,6 +9,7 @@ coverImage: "https://i.pinimg.com/736x/85/6d/a8/856da862960a0b154b86779d047f7448
 
 
 
+
 > „Es gibt nur ein wirklich ernstes philosophisches Problem: den Selbstmord. Sich entscheiden, ob das Leben es wert ist, gelebt zu werden oder nicht, heißt, auf die Grundfrage der Philosophie antworten.“
 
 Camus argumentiert, dass das Leben keinen inhärenten Sinn besitzt. Damit wird die Frage, ob das Leben lebenswert ist, zur einzig wirklich ernsten philosophischen Frage, da sie reale und existentielle Konsequenzen nach sich zieht. Alle anderen philosophischen Fragen seien zweitrangig oder bloße „Spielereien“, solange die Grundfrage unbeantwortet bleibt. Erzwingt die Sinnlosigkeit des Lebens den Selbstmord?
