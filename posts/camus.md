@@ -4,7 +4,7 @@ subtitle: "Erzwingt die Absurdität den Selbstmord?"
 author: "Noah Hupfeld"
 date: "2026-06-23"
 tags: ["Camus", "Sinn"]
-coverImage: "https://www1.wdr.de/radio/wdr5/sendungen/zeitzeichen/camus-albert-100~_v-ARDFotogalerie.jpg"
+coverImage: "https://www1.wdr.de/radio/wdr5/sendungen/zeitzeichen/camus-albert-100~_v-ARDFotogalerie.jpg]"
 ---
 
 > „Es gibt nur ein wirklich ernstes philosophisches Problem: den Selbstmord. Sich entscheiden, ob das Leben es wert ist, gelebt zu werden oder nicht, heißt, auf die Grundfrage der Philosophie antworten.“
