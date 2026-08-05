@@ -3,7 +3,6 @@ title: "Albert Camus"
 subtitle: "Erzwingt die Absurdität den Selbstmord?"
 author: "Noah Hupfeld"
 date: "2026-06-23"
-tags: ["Camus", "Sinn"]
 coverImage: "https://i.pinimg.com/736x/85/6d/a8/856da862960a0b154b86779d047f7448.jpg"
 ---
 
