@@ -3,8 +3,7 @@ title: "Sinnverlust"
 subtitle: "Eine multiperspektivische Betrachtung des existenziellen Vakuums"
 author: "Noah Hupfeld"
 date: "2026-06-17"
-tags: ["Philosophie", "Sinn"]
-coverImage: "https://austria-forum.org/attach/Wissenssammlungen/Essays/Vermischtes/20._Todestag_Viktor_Frankl/scaled-900x426-Viktor-Frankl.jpg"
+coverImage: "https://substackcdn.com/image/fetch/$s_!yceO!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F20a8af46-6de4-49d8-8dea-77aa2ef08731_788x444.jpeg"
 ---
 
 > „Manchmal stürzen die Kulissen ein. […] Eines Tages aber erhebt sich das ‚Warum?‘, und mit diesem Überdruss, in den sich das Erstaunen mischt, fängt alles an.“ — Albert Camus

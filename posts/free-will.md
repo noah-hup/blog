@@ -4,7 +4,7 @@ subtitle: "Entscheidungen zwischen Determinismus, Zufall und Selbstentdeckung"
 author: "Noah Hupfeld"
 date: "2026-06-04"
 tags: ["Philosophie"]
-coverImage: "https://i.pinimg.com/1200x/7c/0b/4e/7c0b4ee927f3fb3a11cb109a495928c4.jpg"
+coverImage: "https://i.pinimg.com/736x/2d/3f/4b/2d3f4b90da8ab4f0b1db46f42a598185.jpg"
 ---
 
 > Der Mensch erlebt sich als ein subjektiv freies Wesen, dessen besondere Stellung aus der Fähigkeit zu rationalen
