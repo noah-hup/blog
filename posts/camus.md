@@ -1,5 +1,5 @@
 ---
-title: "Albert Camus test"
+title: "Albert Camus"
 subtitle: "Erzwingt die Absurdität den Selbstmord?"
 author: "Noah Hupfeld"
 date: "2026-06-23"
